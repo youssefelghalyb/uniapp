@@ -16,6 +16,8 @@
                 <a href="{{ route('students.index') }}" class="block py-2 px-4 rounded {{ request()->routeIs('students.*') ? 'bg-gray-800' : 'hover:bg-gray-700' }}">Students</a>
                 <a href="{{ route('assistants.index') }}" class="block py-2 px-4 rounded {{ request()->routeIs('assistants.*') ? 'bg-gray-800' : 'hover:bg-gray-700' }}">Assistants</a>
                 <a href="{{ route('courses.index') }}" class="block py-2 px-4 rounded {{ request()->routeIs('courses.*') ? 'bg-gray-800' : 'hover:bg-gray-700' }}">Courses</a>
+                <a href="{{ route('departments.index') }}" class="block py-2 px-4 rounded {{ request()->routeIs('departments.*') ? 'bg-gray-800' : 'hover:bg-gray-700' }}">Departments</a>
+            
             </nav>
         </aside>
 

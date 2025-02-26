@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collage;
 use App\Models\Course;
 use App\Models\Student;
 use App\Models\StudentAssistant;
@@ -9,18 +10,21 @@ use App\Models\StudentCourse;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+
 class StudentController extends Controller
 {
     public function index()
     {
         $students = Student::all();
 
+        
+
         return view('students.index', compact('students'));
     }
 
-    public function show(Student $student)
+    public function show($id)
     {
-        $student->load('user', 'courses');
+        $student = Student::find( $id);
         return view('students.show', compact('student'));
     }
 
@@ -28,7 +32,7 @@ class StudentController extends Controller
     {
         $users = User::all();
         $courses = Course::all(); 
-        return view('students.create', compact('users', 'courses'));
+        return view('students.create', compact('users', 'courses' ));
     }
     
     public function store(Request $request)
@@ -54,10 +58,6 @@ class StudentController extends Controller
             ]);
         }
 
-
-        // if(isset($validated['courses'])) {
-        //     $student->courses()->attach($validated['courses']);
-        // }
 
     
         return redirect()->route('students.index')->with('success', 'Student created successfully');

@@ -11,6 +11,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GPA</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
@@ -20,6 +21,7 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $student->student_id }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $student->user->name }}</td>
+
                         <td class="px-6 py-4 whitespace-nowrap">{{ $student->curren_gpa }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <a href="{{ route('students.edit', $student) }}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>

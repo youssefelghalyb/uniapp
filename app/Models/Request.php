@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StudentAssistant extends Model
+class Request extends Model
 {
+    
     protected $guarded = [];
 
-    protected $table = 'students_assistants';
-
+    protected $table = 'requests';
+    
     public function student()
     {
         return $this->belongsTo(Student::class);

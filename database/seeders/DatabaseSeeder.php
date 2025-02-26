@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Assistant;
+use App\Models\Collage;
 use App\Models\Course;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -29,12 +30,26 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
+        $collages = [
+            ['name' => 'Business', 'slug' => 'business', 'description' => 'Business collage'],
+            ['name' => 'Arts', 'slug' => 'arts', 'description' => 'Arts collage'],
+            ['name' => 'Science', 'slug' => 'science', 'description' => 'Science collage'],
+            ['name' => 'Medicine', 'slug' => 'medicine', 'description' => 'Medicine collage'],
+            ['name' => 'Law', 'slug' => 'law', 'description' => 'Law collage'],
+        ];
+
+        foreach ($collages as $collage) {
+            Collage::create($collage);
+        }
+
+
         // Create students
         $userIds = User::pluck('id')->toArray();
         for ($i = 0; $i < 10; $i++) {
             Student::create([
                 'user_id' => $userIds[$i],
                 'student_id' => 'STU' . str_pad($i + 1, 3, '0', STR_PAD_LEFT),
+                'collage_id' => rand(1, 5),
                 'curren_gpa' => number_format(rand(200, 400) / 100, 2),
             ]);
         }

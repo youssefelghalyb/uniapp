@@ -2,7 +2,7 @@
     <div class="bg-white rounded-lg shadow p-6">
         <h2 class="text-xl font-bold mb-6">Add Student</h2>
 
-        <form action="" method="POST">
+        <form action="{{route('students.store')}}" method="POST">
             @csrf
             
             <div class="mb-4">
@@ -15,6 +15,7 @@
                     @endforeach
                 </select>
             </div>
+
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="student_id">
@@ -56,3 +57,4 @@
         </form>
     </div>
 </x-app-layout>
+

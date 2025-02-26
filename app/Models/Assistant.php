@@ -8,6 +8,8 @@ class Assistant extends Model
 {
     protected $guarded = [];
 
+    protected $table = 'assistants';
+
     public function students()
     {
         return $this->belongsToMany(Student::class, 'students_assistants');
