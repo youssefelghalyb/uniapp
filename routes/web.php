@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdvisorController;
+use App\Http\Controllers\AdvisorDashboardController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProductController;
@@ -49,27 +50,30 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/faq', [StudentDashboardController::class, 'faq'])->name('student-faq.index');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     });
+
+     Route::prefix('advisor-dashbaord') ->group(function () {
+        Route::get('/' , [AdvisorDashboardController::class, 'dashboard']) ->name('advisor.dashboard' ); 
+
+     }); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
 
 
 
