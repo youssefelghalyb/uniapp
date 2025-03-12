@@ -64,7 +64,7 @@
                                 <div class="ml-7 text-sm text-gray-600">{{ \Carbon\Carbon::parse($meeting->dateTime)->format('g:i A') }}</div>
                                 <div class="ml-7 mt-2">
                                     <span class="text-sm text-gray-600">Advisor: </span>
-                                    <span class="text-sm font-medium text-gray-900">{{ $meeting->assistant->user->name }}</span>
+                                    <span class="text-sm font-medium text-gray-900">{{ $meeting->advisor->user->name }}</span>
                                 </div>
                                 @if($meeting->notes)
                                     <div class="ml-7 mt-1 text-sm text-gray-600">
@@ -146,7 +146,7 @@
                                     {{ \Carbon\Carbon::parse($meeting->dateTime)->format('M d, Y g:i A') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $meeting->assistant->user->name }}
+                                    {{ $meeting->advisor->user->name }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
                                     {{ Str::limit($meeting->notes, 50) }}

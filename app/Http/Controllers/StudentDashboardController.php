@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Assistant;
+use App\Models\Advisor;
 use App\Models\Faq;
 use App\Models\Meeting;
 use App\Models\Request as ModelsRequest;
 use App\Models\Student;
-use App\Models\StudentAssistant;
+use App\Models\StudentAdvisor;
 use App\Models\Topic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,7 +18,10 @@ class StudentDashboardController extends Controller
     public function dashboard()
     {
 
-        $student = Student::with(['user' , 'assistants' ,'assistants.user'])->where('user_id' , Auth::id())->first();
+        $student = Student::with(['user' , 'advisors' ,'advisors.user'])->where('user_id' , Auth::id())->first();
+        if(!$student){
+            abort(403, 'Your Role is not student');
+        }
         return view('students-dashboard.dashboard' , compact('student'));
     }
 
@@ -30,11 +33,11 @@ class StudentDashboardController extends Controller
         
         // Get all requests for this student, paginated
         $requests = ModelsRequest::where('student_id', $studentId->id)
-            ->with('assistant')
+            ->with('advisor')
             ->orderBy('created_at', 'desc')
             ->get();
            
-            $assistant = StudentAssistant::where('student_id' , $studentId->id)->first();
+            $advisors = StudentAdvisor::where('student_id' , $studentId->id)->first();
         
         return view('students-dashboard.requests.create', compact('requests'));
     }
@@ -50,11 +53,11 @@ class StudentDashboardController extends Controller
             'message' => 'required|string',
             ]);
             $studentId = Student::where('user_id' , Auth::id())->first();
-            $assistant = StudentAssistant::where('student_id' , $studentId->id)->first();
+            $advisor = StudentAdvisor::where('student_id' , $studentId->id)->first();
             // Create the request
             ModelsRequest::create([
             'student_id' => $studentId->id,
-            'assistant_id' => $assistant->assistant_id,
+            'advisor_id' => $advisor->advisor_id,
             'message' => $validated['message'],
             'status' => 'Pending',
             ]);
@@ -75,7 +78,7 @@ class StudentDashboardController extends Controller
     {
         // Make sure the request belongs to the current student
         $request = ModelsRequest::where('id', $id)
-            ->with('assistant')
+            ->with('advisor')
             ->first();
         return view('students-dashboard.requests.show', compact('request'));
     }
@@ -87,7 +90,7 @@ class StudentDashboardController extends Controller
     {
         // Make sure the request belongs to the current student and is still pending
         $request = ModelsRequest::where('id', $id)
-            ->with('assistant')
+            ->with('advisor')
             ->first();
             $studentId = Student::where('user_id' , Auth::id())->first();
             $canDelete = $studentId->id == $request->student_id;
@@ -113,14 +116,14 @@ class StudentDashboardController extends Controller
         // Get upcoming meetings (today's date or future)
         $today = Carbon::today();
         $upcomingMeetings = Meeting::where('student_id', $student->id)
-            ->with('assistant.user')
+            ->with('advisor.user')
             ->whereDate('dateTime', '>=', $today)
             ->orderBy('dateTime', 'asc')
             ->get();
             
         // Get past meetings
         $pastMeetings = Meeting::where('student_id', $student->id)
-            ->with('assistant.user')
+            ->with('advisor.user')
             ->whereDate('dateTime', '<', $today)
             ->orderBy('dateTime', 'desc')
             ->get();
@@ -141,12 +144,12 @@ class StudentDashboardController extends Controller
             ]);
             
             $studentId = Student::where('user_id', Auth::id())->first();
-            $assistant = StudentAssistant::where('student_id', $studentId->id)->first();
+            $advisor = StudentAdvisor::where('student_id', $studentId->id)->first();
             
             // Create the meeting
             Meeting::create([
                 'student_id' => $studentId->id,
-                'assistant_id' => $assistant->assistant_id,
+                'advisor_id' => $advisor->advisor_id,
                 'dateTime' => $validated['dateTime'],
                 'notes' => $validated['notes'],
                 'status' => 'Pending',
@@ -167,7 +170,7 @@ class StudentDashboardController extends Controller
     {
         // Get the meeting with relationships
         $meeting = Meeting::where('id', $id)
-            ->with('assistant.user')
+            ->with('advisor.user')
             ->first();
             
         // Make sure the student is authorized to view this meeting

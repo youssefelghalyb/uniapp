@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Collage;
 use App\Models\Course;
 use App\Models\Student;
-use App\Models\StudentAssistant;
+use App\Models\StudentAdvisor;
 use App\Models\StudentCourse;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -48,7 +48,8 @@ class StudentController extends Controller
         $student = Student::create([
             'user_id' => $validated['user_id'],
             'student_id' => $validated['student_id'],
-            'curren_gpa' => $validated['curren_gpa']
+            'curren_gpa' => $validated['curren_gpa'],
+            "department_id" => 1
         ]);
         
         foreach($validated['courses'] as $course){
@@ -95,9 +96,9 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $id = $student->id;
-        $assistance = StudentAssistant::where('student_id', $id)->get();
-        foreach($assistance as $assist) {
-            $assist->delete();
+        $advisors = StudentAdvisor::where('student_id', $id)->get();
+        foreach($advisors as $advisor) {
+            $advisor->delete();
         }
         $courses = StudentCourse::where('student_id', $id)->get();
         foreach($courses as $course) {

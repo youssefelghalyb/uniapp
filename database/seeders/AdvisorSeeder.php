@@ -2,26 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\Assistant;
+use App\Models\Advisor;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class AssistantSeeder extends Seeder
+class AdvisorSeeder extends Seeder
 {
     public function run()
     {
         $departments = ['Computer Science', 'Mathematics', 'Physics', 'Chemistry', 'Biology'];
-        $positions = ['Teaching Assistant', 'Research Assistant', 'Lab Assistant'];
+        $positions = ['Teaching Advisor', 'Research Advisor', 'Lab Advisor'];
 
         $users = User::whereDoesntHave('student')
-                    ->whereDoesntHave('assistant')
+                    ->whereDoesntHave('advisor')
                     ->take(5)
                     ->get();
 
         foreach ($users as $user) {
-            Assistant::create([
+            Advisor::create([
                 'user_id' => $user->id,
-                'assistant_id' => 'AST' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT),
+                'advisor_id' => 'Adv' . str_pad(rand(1, 999), 3, '0', STR_PAD_LEFT),
                 'position' => $positions[array_rand($positions)],
                 'department' => $departments[array_rand($departments)],
             ]);

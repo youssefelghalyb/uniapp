@@ -11,11 +11,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="text-center">
                             <div class="text-4xl font-bold text-purple-600">name</div>
-                            <div class="text-gray-600">{{$student->assistants[0]->user->name}}</div>
+                            <div class="text-gray-600">{{$student->advisors[0]->user->name}}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-4xl font-bold text-indigo-600">Email</div>
-                            <div class="text-gray-600">{{$student->assistants[0]->user->email}}</div>
+                            <div class="text-gray-600">{{$student->advisors[0]->user->email}}</div>
                         </div>
                         <div class="text-center">
                             <div class="text-4xl font-bold text-blue-600">10</div>

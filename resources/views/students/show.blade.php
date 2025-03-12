@@ -43,15 +43,15 @@
             </div>
 
             <div>
-                <h3 class="text-lg font-semibold mb-4">Assigned Assistants</h3>
+                <h3 class="text-lg font-semibold mb-4">Assigned advisor</h3>
                 <div class="space-y-2">
-                    @forelse($student->assistants as $assistant)
+                    @forelse($student->advisors as $advisor)
                         <div class="p-3 bg-gray-50 rounded">
-                            <div class="font-medium">{{ $assistant->user->name }}</div>
-                            <div class="text-sm text-gray-600">{{ $assistant->position }} - {{ $assistant->department }}</div>
+                            <div class="font-medium">{{ $advisor->user->name }}</div>
+                            <div class="text-sm text-gray-600">{{ $advisor->position }} - {{ $advisor->department }}</div>
                         </div>
                     @empty
-                        <p class="text-gray-500">No assistants assigned</p>
+                        <p class="text-gray-500">No advisor assigned</p>
                     @endforelse
                 </div>
             </div>

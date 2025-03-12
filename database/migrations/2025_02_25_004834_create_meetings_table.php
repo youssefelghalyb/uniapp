@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('assistant_id');
+            $table->unsignedBigInteger('advisor_id');
 
             $table->dateTime('dateTime');
             $table->text('notes')->nullable();
             $table->enum('status', ['Pending', 'Accept', 'Reject', 'Rescheduled', 'Attended'])->default('Pending');
 
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->foreign('assistant_id')->references('id')->on('assistants')->onDelete('cascade');
+            $table->foreign('advisor_id')->references('id')->on('advisors')->onDelete('cascade');
             $table->timestamps();
         });
     }

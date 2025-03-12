@@ -57,8 +57,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-gray-800 font-medium">{{ $meeting->assistant->user->name }}</p>
-                                    <p class="text-gray-600 text-sm">{{ $meeting->assistant->user->email }}</p>
+                                    <p class="text-gray-800 font-medium">{{ $meeting->advisor->user->name }}</p>
+                                    <p class="text-gray-600 text-sm">{{ $meeting->advisor->user->email }}</p>
                                 </div>
                             </div>
                         </div>

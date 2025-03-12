@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AssistantController;
+use App\Http\Controllers\AdvisorController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProductController;
@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('students', StudentController::class)->names('students');
-    Route::resource('assistants', AssistantController::class)->names('assistants');
+    Route::resource('advisors', AdvisorController::class)->names('advisors');
     Route::resource('courses', CourseController::class)->names('courses');
 
     Route::get('departments' ,  [DepartmentController::class , 'index'])->name('departments.index');

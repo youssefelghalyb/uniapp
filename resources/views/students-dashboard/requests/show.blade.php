@@ -37,7 +37,7 @@
             <div class="p-4">
                 <div class="mb-4">
                     <h3 class="text-md font-medium text-gray-700 mb-1">Advisor</h3>
-                    <p class="text-gray-800">{{ $request->assistant->user->name }}</p>
+                    <p class="text-gray-800">{{ $request->advisor->user->name }}</p>
                 </div>
                 
                 <div class="mb-4">

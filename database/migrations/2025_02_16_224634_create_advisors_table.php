@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         
-        Schema::create('assistants', function (Blueprint $table) {
+        Schema::create('advisors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('assistant_id')->unique();
+            $table->string('advisor_id')->unique();
             $table->string('position');
             $table->string('department');
             $table->timestamps();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('assistants');
+        Schema::dropIfExists('advisors');
     }
 };

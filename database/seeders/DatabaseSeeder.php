@@ -4,9 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Student;
-use App\Models\Assistant;
+use App\Models\Advisor;
 use App\Models\Collage;
 use App\Models\Course;
+use App\Models\Department;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -31,15 +32,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $collages = [
-            ['name' => 'Business', 'slug' => 'business', 'description' => 'Business collage'],
-            ['name' => 'Arts', 'slug' => 'arts', 'description' => 'Arts collage'],
-            ['name' => 'Science', 'slug' => 'science', 'description' => 'Science collage'],
-            ['name' => 'Medicine', 'slug' => 'medicine', 'description' => 'Medicine collage'],
-            ['name' => 'Law', 'slug' => 'law', 'description' => 'Law collage'],
+            ['name' => 'Business', 'description' => 'Business collage'],
+            ['name' => 'Arts',  'description' => 'Arts collage'],
+            ['name' => 'Science', 'description' => 'Science collage'],
+            ['name' => 'Medicine', 'description' => 'Medicine collage'],
+            ['name' => 'Law', 'description' => 'Law collage'],
         ];
 
         foreach ($collages as $collage) {
-            Collage::create($collage);
+            Department::create($collage);
         }
 
 
@@ -49,19 +50,19 @@ class DatabaseSeeder extends Seeder
             Student::create([
                 'user_id' => $userIds[$i],
                 'student_id' => 'STU' . str_pad($i + 1, 3, '0', STR_PAD_LEFT),
-                'collage_id' => rand(1, 5),
+                'department_id' => rand(1, 5),
                 'curren_gpa' => number_format(rand(200, 400) / 100, 2),
             ]);
         }
 
-        // Create assistants
+        // Create Advisors
         $departments = ['Computer Science', 'Mathematics', 'Physics', 'Chemistry', 'Biology'];
-        $positions = ['Teaching Assistant', 'Research Assistant', 'Lab Assistant'];
+        $positions = ['Teaching Advisor', 'Research Advisor', 'Lab Advisor'];
 
         for ($i = 10; $i < 15; $i++) {
-            Assistant::create([
+            Advisor::create([
                 'user_id' => $userIds[$i],
-                'assistant_id' => 'AST' . str_pad($i - 9, 3, '0', STR_PAD_LEFT),
+                'advisor_id' => 'Adv' . str_pad($i - 9, 3, '0', STR_PAD_LEFT),
                 'position' => $positions[array_rand($positions)],
                 'department' => $departments[array_rand($departments)],
             ]);
@@ -110,14 +111,14 @@ class DatabaseSeeder extends Seeder
             $student->courses()->attach((array)$randomCourses);
         }
 
-        // Assign random students to assistants
-        $assistants = Assistant::all();
+        // Assign random students to advisors
+        $advisors = Advisor::all();
         $studentIds = Student::pluck('id')->toArray();
 
-        foreach ($assistants as $assistant) {
+        foreach ($advisors as $advisor) {
             $randomStudentCount = rand(2, 5);
             $randomStudents = array_rand(array_flip($studentIds), $randomStudentCount);
-            $assistant->students()->attach((array)$randomStudents);
+            $advisor->students()->attach((array)$randomStudents);
         }
     }
 }

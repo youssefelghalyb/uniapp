@@ -4,19 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StudentAssistant extends Model
+class StudentAdvisor extends Model
 {
     protected $guarded = [];
 
-    protected $table = 'students_assistants';
+    protected $table = 'students_advisors';
 
     public function student()
     {
         return $this->belongsTo(Student::class);
     }
     
-    public function assistant()
+    public function advisor()
     {
-        return $this->belongsTo(Assistant::class);
+        return $this->belongsTo(Advisor::class);
     }
 }

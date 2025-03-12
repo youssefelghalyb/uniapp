@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('assistant_id');
+            $table->unsignedBigInteger('advisor_id');
             $table->enum('status' , ['Pending' , 'Answered' , 'FAQ'])->default('Pending');
             $table->text('message');
             $table->text('response')->nullable();
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->foreign('assistant_id')->references('id')->on('assistants')->onDelete('cascade');
+            $table->foreign('advisor_id')->references('id')->on('advisors')->onDelete('cascade');
             $table->timestamps();
         });
     }

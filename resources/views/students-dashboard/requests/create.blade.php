@@ -59,7 +59,7 @@
                                     {{ $request->created_at->format('M d, Y') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $request->assistant->name }}
+                                    {{ $request->advisor->user->name }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
                                     {{ Str::limit($request->message, 50) }}

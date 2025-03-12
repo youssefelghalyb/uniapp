@@ -11,7 +11,7 @@ class StudentSeeder extends Seeder
     public function run()
     {
         $users = User::whereDoesntHave('student')
-                    ->whereDoesntHave('assistant')
+                    ->whereDoesntHave('advisor')
                     ->take(10)
                     ->get();
 

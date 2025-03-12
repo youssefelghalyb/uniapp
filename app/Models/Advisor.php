@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Assistant extends Model
+class Advisor extends Model
 {
     protected $guarded = [];
 
-    protected $table = 'assistants';
+    protected $table = 'advisors';
 
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'students_assistants');
+        return $this->belongsToMany(Student::class, 'students_advisors');
     }
 
     public function user()

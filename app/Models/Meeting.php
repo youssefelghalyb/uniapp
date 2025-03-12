@@ -14,8 +14,8 @@ class Meeting extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function assistant()
+    public function advisor()
     {
-        return $this->belongsTo(Assistant::class);
+        return $this->belongsTo(Advisor::class);
     }
 }
