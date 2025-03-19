@@ -52,8 +52,12 @@ Route::middleware('auth')->group(function () {
 
     });
 
-     Route::prefix('advisor-dashbaord') ->group(function () {
+     Route::prefix('advisor-dashboard') ->group(function () {
         Route::get('/' , [AdvisorDashboardController::class, 'dashboard']) ->name('advisor.dashboard' ); 
+
+        Route::get('/requests' , [AdvisorDashboardController::class, 'myRequests']) ->name('advisor.requests');
+
+        Route::get('/requests/{request}' , [AdvisorDashboardController::class, 'showRequest']) ->name('advisor.requests.show');
 
      }); 
 
