@@ -3,6 +3,53 @@
     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
         <h1 class="text-2xl font-bold mb-6 text-indigo-800">Frequently Asked Questions</h1>
         
+        <!-- Add New FAQ Form -->
+        <div class="bg-indigo-50 rounded-lg p-6 mb-6 border border-indigo-100">
+            <h2 class="text-xl font-semibold text-indigo-800 mb-4">Add New FAQ</h2>
+            
+            <form action="{{ route('advisor-faq.store') }}" method="POST">
+                @csrf
+                
+                <div class="grid grid-cols-1 gap-6">
+                    <!-- Topic Selection -->
+                    <div>
+                        <label for="new_topic_id" class="block text-sm font-medium text-gray-700 mb-1">Topic</label>
+                        <select id="new_topic_id" name="topic_id" required
+                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option value="">Select a Topic</option>
+                            @foreach($topics as $topic)
+                                <option value="{{ $topic->id }}">{{ $topic->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <!-- Question Input -->
+                    <div>
+                        <label for="question" class="block text-sm font-medium text-gray-700 mb-1">Question</label>
+                        <input type="text" id="question" name="question" required
+                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            placeholder="Enter the frequently asked question">
+                    </div>
+                    
+                    <!-- Answer Input -->
+                    <div>
+                        <label for="answer" class="block text-sm font-medium text-gray-700 mb-1">Answer</label>
+                        <textarea id="answer" name="answer" rows="4" required
+                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            placeholder="Enter the answer to the question"></textarea>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit" 
+                            class="w-full md:w-auto px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
+                            Add FAQ
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
         <!-- Search and Filter Form -->
         <form action="{{ route('student-faq.index') }}" method="GET" class="mb-8">
             <div class="flex flex-col md:flex-row gap-4">
@@ -27,16 +74,17 @@
                         <input type="text" id="search" name="search" value="{{ request('search') }}" 
                             class="w-full rounded-l-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                             placeholder="Search questions or answers...">
-                        <button type="submit" 
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-r-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
+
+                            <button type="submit" 
+                            class="px-4 py-2 mx-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                             </svg>
-                        </button>
+                        </button>            
                     </div>
+                    
                 </div>
             </div>
-            
             <!-- Reset Filters Button (only show if filters are active) -->
             @if(request('topic_id') || request('search'))
                 <div class="mt-2 text-right">

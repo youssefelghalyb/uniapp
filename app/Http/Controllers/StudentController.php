@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advisor;
 use App\Models\Collage;
 use App\Models\Course;
 use App\Models\Student;
@@ -43,6 +44,12 @@ class StudentController extends Controller
             'curren_gpa' => 'required',
             'courses' => 'array' 
         ]);
+
+        $isAdvisor = Advisor::where('user_id', $validated['user_id'])->exists();
+        if($isAdvisor){
+            return redirect()->route('students.index')->with('errors', 'Error creating advisor' . "User is a advisor");
+        }
+    
 
     
         $student = Student::create([

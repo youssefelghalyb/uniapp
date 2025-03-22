@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Advisor;
 use App\Models\Student;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class AdvisorController extends Controller
@@ -16,6 +17,7 @@ class AdvisorController extends Controller
 
     public function create()
     {
+        
         $users = User::all();
         $students = Student::all(); // Add this
         return view('advisors.create', compact('users', 'students'));
@@ -37,6 +39,11 @@ class AdvisorController extends Controller
             'department' => 'required',
             'students' => 'array' // Add this
         ]);
+
+        $isStudent = Student::where('user_id', $validated['user_id'])->exists();
+        if($isStudent){
+            return redirect()->route('advisors.index')->with('errors', 'Error creating advisor' . "User is a student");
+        }
     
         $advisor = advisor::create([
             'user_id' => $validated['user_id'],
@@ -85,8 +92,13 @@ class AdvisorController extends Controller
 
     public function destroy(advisor $advisor)
     {
-        $advisor->delete();
-        return redirect()->route('advisors.index')->with('success', 'advisor deleted successfully');
+        try{
+            $advisor->delete();
+            return redirect()->route('advisors.index')->with('success', 'advisor deleted successfully');
+
+        }catch(Exception $e){
+            return redirect()->route('advisors.index')->with('errors', 'Error deleting advisor' . "You Should reassign students first");
+        }
     }
 }
 

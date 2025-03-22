@@ -36,12 +36,12 @@
             <!-- Request Content -->
             <div class="p-4">
                 <div class="mb-4">
-                    <h3 class="text-md font-medium text-gray-700 mb-1">Advisor</h3>
-                    <p class="text-gray-800">{{ $request->advisor->user->name }}</p>
+                    <h3 class="text-md font-medium text-gray-700 mb-1">Student</h3>
+                    <p class="text-gray-800">{{ $request->student->user->name }}</p>
                 </div>
                 
                 <div class="mb-4">
-                    <h3 class="text-md font-medium text-gray-700 mb-1">Your Request</h3>
+                    <h3 class="text-md font-medium text-gray-700 mb-1">Student Request</h3>
                     <div class="bg-gray-50 p-4 rounded-md text-gray-800 whitespace-pre-line">{{ $request->message }}</div>
                 </div>
                 
@@ -60,33 +60,37 @@
             </div>
         </div>
         
-        <!-- Actions -->
-        <div class="flex justify-between">
-            <div>
-                <!-- Only show delete button if it's still pending -->
-                @if($request->status == 'Pending')
-                    <form action="{{ route('student-requests.destroy', $request->id) }}" method="POST" class="inline" 
-                          onsubmit="return confirm('Are you sure you want to delete this request?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="px-4 py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition">
-                            Delete Request
-                        </button>
-                    </form>
-                @endif
+
+
+
+        <form action="Route" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Delete</button>            
+        </form>
+
+
+
+        <h1 class="text-lg"> Your Response </h1>
+        <form action="{{route('advisor-requests.answer' , $request->id)}}" method="POST" class="mt-5">
+            @csrf
+            <div class="mb-4">
+                <label for="response" class="block text-sm font-medium text-gray-700">Response</label>
+                <textarea name="response" id="response" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
             </div>
-            
-            <!-- Only show these options if request has been answered -->
-            @if($request->status == 'Answered')
-                <div>
-                    <a href="#" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition mr-2">
-                        Send Follow-up
-                    </a>
-                    <a href="#" class="px-4 py-2 bg-green-100 text-green-700 rounded-md hover:bg-green-200 transition">
-                        Mark as Resolved
-                    </a>
-                </div>
-            @endif
-        </div>
+
+            <div class="mb-4">
+                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+              <select name="status" id="status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <option value="Answered">Answered</option>
+                <option value="FAQ">FAQ</option>
+              </select>
+
+            </div>
+            <div class="mb-4 mt-5">
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">Submit Response</button>
+            </div>
+        </form>
+
     </div>
 </x-workers-layout>

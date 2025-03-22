@@ -105,32 +105,17 @@
                     </div>
                 </div>
                 
-                <!-- Rejection Reason (if applicable) -->
-                @if($meeting->status == 'Reject' && isset($meeting->rejection_reason))
-                    <div class="mt-6 border-t border-gray-200 pt-4">
-                        <h3 class="text-md font-medium text-gray-700 mb-1">Rejection Reason</h3>
-                        <div class="bg-red-50 p-4 rounded-md text-gray-800 whitespace-pre-line">
-                            {{ $meeting->rejection_reason }}
-                        </div>
+                @if(isset($meeting->response))
+                <div class="mt-6 border-t border-gray-200 pt-4">
+                    <h3 class="text-md font-medium text-gray-700 mb-1">Advisor Response</h3>
+                    <div class="bg-red-50 p-4 rounded-md text-gray-800 whitespace-pre-line">
+                        {{ $meeting->response }}
                     </div>
+                </div>
                 @endif
-                
-                <!-- Rescheduling Information (if applicable) -->
-                @if($meeting->status == 'Rescheduled' && isset($meeting->original_datetime))
-                    <div class="mt-6 border-t border-gray-200 pt-4">
-                        <h3 class="text-md font-medium text-gray-700 mb-1">Rescheduling Information</h3>
-                        <div class="bg-blue-50 p-4 rounded-md">
-                            <p class="text-gray-800">
-                                This meeting was rescheduled from <span class="font-medium">{{ \Carbon\Carbon::parse($meeting->original_datetime)->format('l, F j, Y \a\t g:i A') }}</span>
-                            </p>
-                            @if(isset($meeting->reschedule_reason))
-                                <p class="mt-2 text-gray-800">
-                                    <span class="font-medium">Reason:</span> {{ $meeting->reschedule_reason }}
-                                </p>
-                            @endif
-                        </div>
-                    </div>
-                @endif
+
+
+
             </div>
         </div>
         

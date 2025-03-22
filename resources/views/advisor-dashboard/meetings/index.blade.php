@@ -1,45 +1,5 @@
 <!-- resources/views/students-dashboard/meetings/index.blade.php -->
 <x-workers-layout>
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h1 class="text-2xl font-bold mb-4 text-indigo-800">Schedule a Meeting with Advisor</h1>
-        
-        <!-- Meeting Form -->
-        <form action="{{ route('student-meetings.store') }}" method="POST" class="space-y-4">
-            @csrf
-            
-            <!-- Hidden student ID field -->
-            <input type="hidden" name="student_id" value="{{ auth()->user()->id }}">
-            
-            <!-- Date and Time Selection -->
-            <div>
-                <label for="dateTime" class="block text-sm font-medium text-gray-700 mb-1">Select Date and Time</label>
-                <input type="datetime-local" id="dateTime" name="dateTime" required 
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                @error('dateTime')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-            
-            <!-- Meeting Notes -->
-            <div>
-                <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Meeting Notes (Optional)</label>
-                <textarea id="notes" name="notes" rows="3" 
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    placeholder="Add any details about the purpose of the meeting..."></textarea>
-                @error('notes')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-            
-            <!-- Submit Button -->
-            <div>
-                <button type="submit" 
-                    class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">
-                    Request Meeting
-                </button>
-            </div>
-        </form>
-    </div>
     
     <!-- Upcoming Meetings -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -97,7 +57,7 @@
                                     @endif
                                 </div>
                                 <div class="mt-4 space-x-2">
-                                    <a href="{{ route('student-meetings.show', $meeting->id) }}" 
+                                    <a href="{{ route('advisor.meetings-show', $meeting->id) }}" 
                                         class="text-indigo-600 hover:text-indigo-900 text-sm">View Details</a>
                                     
                                     @if($meeting->status == 'Pending')
@@ -106,7 +66,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900 text-sm">
-                                                Cancel
+                                                Rejected
                                             </button>
                                         </form>
                                     @endif
