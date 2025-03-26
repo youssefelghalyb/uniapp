@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\AdvisorController;
 use App\Http\Controllers\AdvisorDashboardController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MonitorController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentDashboardController;
@@ -14,23 +14,27 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+
+
+
+
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('welcome');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('students', StudentController::class)->names('students');
     Route::resource('advisors', AdvisorController::class)->names('advisors');
     Route::resource('courses', CourseController::class)->names('courses');
     Route::resource('topics', TopicController::class)->names('topics');
     Route::resource('users', UserController::class)->names('users');    
+    Route::resource('branches', BranchController::class)->names('branches');    
 
 
 
@@ -48,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::post('departments/update/{id}',  [DepartmentController::class, 'update'])->name('departments.update');
 
 
+
     Route::get('/meetings', [MonitorController::class, 'indexMeetings'])->name('meetings.index');
 Route::get('/meetings/{meeting}', [MonitorController::class, 'showMeeting'])->name('meetings.show');
 
@@ -58,6 +63,9 @@ Route::get('/requests/{request}', [MonitorController::class, 'showRequest'])->na
 
 
 
+
+
+    //Student Dashboard 
     Route::prefix('student-dashboard')->group(function () {
         Route::get('/', [StudentDashboardController::class, 'dashboard'])->name('student-dashboard');
         Route::get('/requests', [StudentDashboardController::class, 'newRequest'])->name('student-requests.index');
@@ -75,6 +83,8 @@ Route::get('/requests/{request}', [MonitorController::class, 'showRequest'])->na
         Route::get('/faq', [StudentDashboardController::class, 'faq'])->name('student-faq.index');
     });
 
+
+    // Advisor Dashboard
     Route::prefix('advisor-dashboard')->group(function () {
         Route::get('/', [AdvisorDashboardController::class, 'dashboard'])->name('advisor-dashboard');
         Route::get('/requests', [AdvisorDashboardController::class, 'myRequests'])->name('advisor-requests.index');

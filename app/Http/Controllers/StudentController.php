@@ -3,24 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advisor;
-use App\Models\Collage;
+use App\Models\Branch;
 use App\Models\Course;
+use App\Models\Department;
 use App\Models\Student;
 use App\Models\StudentAdvisor;
 use App\Models\StudentCourse;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::all();
-
+        // Get all branches and departments for the filter dropdowns
+        $branches = Branch::orderBy('name')->get();
+        $departments = Department::orderBy('name')->get();
         
-
-        return view('students.index', compact('students'));
+        // Start building the query
+        $query = Student::query();
+        
+        // Always eager load these relationships for better performance
+        $query->with(['user', 'branch', 'department']);
+        
+        // Apply search filter if provided
+        if ($search = $request->input('search')) {
+            $query->where(function($q) use ($search) {
+                // Search by student ID
+                $q->where('student_id', 'LIKE', "%{$search}%")
+                  // Or search by user name (requires join)
+                  ->orWhereHas('user', function($userQuery) use ($search) {
+                      $userQuery->where('name', 'LIKE', "%{$search}%");
+                  });
+            });
+        }
+        
+        // Filter by branch if provided
+        if ($branchId = $request->input('branch')) {
+            $query->where('branch_id', $branchId);
+        }
+        
+        // Filter by department if provided
+        if ($departmentId = $request->input('department')) {
+            $query->where('department_id', $departmentId);
+        }
+        
+        // Get paginated results
+        $students = $query->orderBy('student_id')->paginate(10);
+        
+        return view('students.index', compact('students', 'branches', 'departments'));
     }
 
     public function show($id)
@@ -33,7 +64,9 @@ class StudentController extends Controller
     {
         $users = User::all();
         $courses = Course::all(); 
-        return view('students.create', compact('users', 'courses' ));
+        $departments = Department::all();
+        $branches = Branch::all();
+        return view('students.create', compact('users', 'courses' , 'departments' , 'branches')); 
     }
     
     public function store(Request $request)
@@ -41,6 +74,7 @@ class StudentController extends Controller
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'student_id' => 'required|unique:students',
+            'branch_id' => 'required|exists:branches,id',
             'curren_gpa' => 'required',
             'courses' => 'array' 
         ]);
@@ -56,6 +90,7 @@ class StudentController extends Controller
             'user_id' => $validated['user_id'],
             'student_id' => $validated['student_id'],
             'curren_gpa' => $validated['curren_gpa'],
+            'branch_id' => $validated['branch_id'],
             "department_id" => 1
         ]);
         
@@ -76,7 +111,9 @@ class StudentController extends Controller
         $users = User::all();
         $courses = Course::all();
         $selectedCourses = $student->courses->pluck('id')->toArray();
-        return view('students.edit', compact('student', 'users', 'courses', 'selectedCourses'));
+        $branches = Branch::all();
+        $departments = Department::all();
+        return view('students.edit', compact('student', 'users', 'courses', 'selectedCourses'  , 'branches' , 'departments'));
     }
     
     public function update(Request $request, Student $student)
@@ -85,13 +122,17 @@ class StudentController extends Controller
             'user_id' => 'required|exists:users,id',
             'student_id' => 'required|unique:students,student_id,' . $student->id,
             'curren_gpa' => 'required',
-            'courses' => 'array'
+            'courses' => 'array',
+            'branch_id' => 'required|exists:branches,id',
+            'department_id' => 'required|exists:departments,id'
         ]);
     
         $student->update([
             'user_id' => $validated['user_id'],
             'student_id' => $validated['student_id'],
-            'curren_gpa' => $validated['curren_gpa']
+            'curren_gpa' => $validated['curren_gpa'],
+            'branch_id' => $validated['branch_id'],
+            'department_id' => $validated['department_id']
         ]);
     
         $student->courses()->sync($request->input('courses', []));

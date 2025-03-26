@@ -19,6 +19,25 @@
                 </select>
             </div>
 
+
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="branch_id">
+                    Branch
+                </label>
+                <select name="branch_id" id="branch_id"
+                
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    @foreach ($branches as $branch)
+                        <option 
+                        {{ $branch->id == $advisor->branch_id ? 'selected' : '' }}
+                        value="{{ $branch->id }}">{{ $branch->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+
+
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="advisor_id">
                     advisor ID

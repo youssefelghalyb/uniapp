@@ -148,7 +148,7 @@ class AdvisorDashboardController extends Controller
         }
         
         // Return the view with the data
-        return view('students-dashboard.faq.index', compact('faqs', 'topics', 'noResults'));
+        return view('advisor-dashboard.faq.index', compact('faqs', 'topics', 'noResults'));
     }
 
 

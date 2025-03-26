@@ -21,8 +21,11 @@
     <div id="app" class="flex h-screen">
         <!-- Sidebar with gradient background -->
         <div class="purple-blue-gradient w-64 flex-shrink-0 text-white hidden md:block">
-            <div class="p-6">
-                <div class="text-2xl font-bold mb-8"> Uni Advisor</div>
+            <div class="p-6 ">
+                <div class="flex justify-start items-center mb-8">
+                <img src="{{asset('images/logo.png')}}" alt="" width="65">
+                <div class="text-2xl font-bold "> Uni Advisor</div>
+            </div>
                 
                 @php
                     $user = Auth::id();

@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="bg-white rounded-lg shadow p-6">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-bold">Course Details</h2>
@@ -39,4 +39,4 @@
             </div>
         </div>
     </div>
-</x-layout>
+</x-app-layout>

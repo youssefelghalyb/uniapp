@@ -7,9 +7,22 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::paginate(10);
+        // Start building the query
+        $query = Course::query();
+        
+        // Apply search filter if search parameter exists
+        if ($search = $request->input('search')) {
+            $query->where(function($q) use ($search) {
+                $q->where('course_id', 'LIKE', "%{$search}%")
+                  ->orWhere('course_name', 'LIKE', "%{$search}%");
+            });
+        }
+        
+        // Get paginated results
+        $courses = $query->orderBy('course_id')->paginate(10);
+        
         return view('courses.index', compact('courses'));
     }
 

@@ -4,14 +4,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advisor;
+use App\Models\Branch;
 use App\Models\Contact;
+use App\Models\Course;
+use App\Models\Department;
+use App\Models\Meeting;
+use App\Models\Student;
+use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
+use App\Models\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController{
     public function index(){
-        return view('dashboard.index');
+        $stats = [
+            'users' => User::count(),
+            'students' => Student::count(),
+            'advisors' => Advisor::count(),
+            'departments' => Department::count(),
+            'branches' => Branch::count(),
+            'courses' => Course::count(),
+            'meetings' => Meeting::count(),
+            'requests' => Request::count(),
+        ];
+        
+        // Get the student to advisor ratio
+        $studentAdvisorRatio = $stats['advisors'] > 0 
+            ? round($stats['students'] / $stats['advisors'], 1) 
+            : 0;
+        
+        return view('dashboard', compact('stats', 'studentAdvisorRatio'));
     }
 
 

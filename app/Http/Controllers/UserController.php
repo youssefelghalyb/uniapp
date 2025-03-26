@@ -8,9 +8,23 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
+        $search = $request->input('search');
+        
+        $query = User::query();
+        
+        // Apply search filter if search parameter exists
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+        }
+        
+        // Get paginated results
+        $users = $query->orderBy('name')->paginate(10);
+        
         return view('users.index', compact('users'));
     }
 
