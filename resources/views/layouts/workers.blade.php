@@ -22,9 +22,9 @@
         <!-- Sidebar with gradient background -->
         <div class="purple-blue-gradient w-64 flex-shrink-0 text-white hidden md:block">
             <div class="p-6 ">
-                <div class="flex justify-start items-center mb-8">
+                <div class="flex justify-start items-center mb-8 bg-gary-100 rounded-lg">
                 <img src="{{asset('images/logo.png')}}" alt="" width="65">
-                <div class="text-2xl font-bold "> Uni Advisor</div>
+                <div class="text-2xl font-bold "> UniAdvisor</div>
             </div>
                 
                 @php
