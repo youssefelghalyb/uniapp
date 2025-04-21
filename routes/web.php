@@ -93,8 +93,8 @@ Route::get('/requests/{request}', [MonitorController::class, 'showRequest'])->na
 
 
         Route::get('/meetings', [AdvisorDashboardController::class, 'myMeetings'])->name('advisor-meetings.index');
-        Route::get('/meetings/{meeting}', [AdvisorDashboardController::class, 'showMeeting'])->name('advisor.meetings-show');
-        Route::post('/meetings/response/{meeting}', [AdvisorDashboardController::class, 'storeResponse'])->name('advisor.meetings-response');
+        Route::get('/meetings/{meeting}', [AdvisorDashboardController::class, 'showMeeting'])->name('advisor-meetings.show');
+        Route::post('/meetings/response/{meeting}', [AdvisorDashboardController::class, 'storeResponse'])->name('advisor-meetings.response');
 
         Route::get('/faq', [AdvisorDashboardController::class, 'faq'])->name('advisor-faq.index');
         Route::post('/faq', [AdvisorDashboardController::class, 'storeFaq'])->name('advisor-faq.store');

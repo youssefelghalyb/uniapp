@@ -80,7 +80,6 @@ class AdvisorDashboardController extends Controller
 
         $pastMeetings = Meeting::where('advisor_id' , $advisor->id)
         ->whereDate('dateTime' , '<' , $today)
-        ->where('status' , 'Attended')
         ->get();
         
         return view('advisor-dashboard.meetings.index' , compact('upcomingMeetings' , 'pastMeetings' , 'advisor'));

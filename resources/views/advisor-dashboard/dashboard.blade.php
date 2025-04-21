@@ -36,7 +36,7 @@
                 <p class="text-gray-600 my-4">
                     Submit a request to your advisor for help or information.
                 </p>
-                <a href="{{route('student-requests.index')}}" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">Learn More</a>
+                <a href="{{route('advisor-requests.index')}}" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">Learn More</a>
             </div>
             
             <!-- Example card -->
@@ -50,7 +50,7 @@
                 <p class="text-gray-600 my-4">
                     Schedule a meeting with your advisor to discuss your academic progress.
                 </p>
-                <a href="{{route('student-meetings.index')}}" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition">Explore</a>
+                <a href="{{route('advisor-meetings.index')}}" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition">Explore</a>
             </div>
             
             <!-- Example card -->
@@ -64,7 +64,7 @@
                 <p class="text-gray-600 my-4">
                     Browse frequently asked questions to find answers to common queries.
                 </p>
-                <a href="{{route('student-faq.index')}}" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Get Started</a>
+                <a href="{{route('advisor-faq.index')}}" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Get Started</a>
             </div>
         </div>
         

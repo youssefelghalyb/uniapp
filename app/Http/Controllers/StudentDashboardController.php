@@ -22,6 +22,9 @@ class StudentDashboardController extends Controller
         if(!$student){
             abort(403, 'Your Role is not student');
         }
+        if(!$student->advisors->first()){
+            abort(403, 'You have not been assigned an advisor yet. Please contact the admin');
+        }
         return view('students-dashboard.dashboard' , compact('student'));
     }
 

@@ -91,7 +91,7 @@ class StudentController extends Controller
             'student_id' => $validated['student_id'],
             'curren_gpa' => $validated['curren_gpa'],
             'branch_id' => $validated['branch_id'],
-            "department_id" => 1
+            "department_id" => $request['department_id']
         ]);
         
         foreach($validated['courses'] as $course){

@@ -3,7 +3,7 @@
     <div class="bg-white rounded-lg shadow-md p-6">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-indigo-800">Meeting Details</h1>
-            <a href="{{ route('student-meetings.index') }}"
+            <a href="{{ route('advisor-meetings.index') }}"
                 class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition">
                 &larr; Back to Meetings
             </a>
@@ -157,25 +157,12 @@
 
         <!-- Actions -->
         <div class="flex justify-between">
-            <div>
-                <!-- Only show delete/cancel button if it's still pending -->
-                @if ($meeting->status == 'Pending')
-                    <form action="{{ route('student-meetings.destroy', $meeting->id) }}" method="POST" class="inline"
-                        onsubmit="return confirm('Are you sure you want to cancel this meeting?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="px-4 py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition">
-                            Cancel Meeting
-                        </button>
-                    </form>
-                @endif
-            </div>
+
 
             <div>
 
 
-                <a href="{{ route('student-meetings.index') }}"
+                <a href="{{ route('advisor-meetings.index') }}"
                     class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition">
                     Back to Meetings
                 </a>
@@ -184,7 +171,7 @@
     </div>
 
      <h1 class="text-lg"> Your Response </h1>
-    <form action="{{ route('advisor.meetings-response', $meeting->id) }}" method="POST" class="mt-5">
+    <form action="{{ route('advisor-meetings.response', $meeting->id) }}" method="POST" class="mt-5">
         @csrf
         <div class="mb-4">
             <label for="response" class="block text-sm font-medium text-gray-700">Response</label>

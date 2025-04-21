@@ -57,19 +57,9 @@
                                     @endif
                                 </div>
                                 <div class="mt-4 space-x-2">
-                                    <a href="{{ route('advisor.meetings-show', $meeting->id) }}" 
+                                    <a href="{{ route('advisor-meetings.show', $meeting->id) }}" 
                                         class="text-indigo-600 hover:text-indigo-900 text-sm">View Details</a>
                                     
-                                    @if($meeting->status == 'Pending')
-                                        <form action="{{ route('student-meetings.destroy', $meeting->id) }}" method="POST" class="inline" 
-                                            onsubmit="return confirm('Are you sure you want to cancel this meeting?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900 text-sm">
-                                                Rejected
-                                            </button>
-                                        </form>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -127,7 +117,7 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('student-meetings.show', $meeting->id) }}" 
+                                    <a href="{{ route('advisor-meetings.show', $meeting->id) }}" 
                                        class="text-indigo-600 hover:text-indigo-900">View</a>
                                 </td>
                             </tr>

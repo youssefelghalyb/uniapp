@@ -52,7 +52,7 @@
         </div>
 
         <!-- Search and Filter Form -->
-        <form action="{{ route('student-faq.index') }}" method="GET" class="mb-8">
+        <form action="{{ route('advisor-faq.index') }}" method="GET" class="mb-8">
             <div class="flex flex-col md:flex-row gap-4">
                 <!-- Topic Filter -->
                 <div class="w-full md:w-1/3">
@@ -88,7 +88,7 @@
             <!-- Reset Filters Button (only show if filters are active) -->
             @if(request('topic_id') || request('search'))
                 <div class="mt-2 text-right">
-                    <a href="{{ route('student-faq.index') }}" class="text-sm text-indigo-600 hover:text-indigo-800">
+                    <a href="{{ route('advisor-faq.index') }}" class="text-sm text-indigo-600 hover:text-indigo-800">
                         Clear filters
                     </a>
                 </div>
@@ -107,7 +107,7 @@
                     <div class="ml-3">
                         <p class="text-sm">
                             No FAQs found matching your filters. 
-                            <a href="{{ route('student-faq.index') }}" class="font-medium underline hover:text-yellow-700">
+                            <a href="{{ route('advisor-faq.index') }}" class="font-medium underline hover:text-yellow-700">
                                 View all FAQs
                             </a>
                         </p>
