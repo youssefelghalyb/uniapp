@@ -23,8 +23,8 @@
                                 </div>
                                 <div class="ml-7 text-sm text-gray-600">{{ \Carbon\Carbon::parse($meeting->dateTime)->format('g:i A') }}</div>
                                 <div class="ml-7 mt-2">
-                                    <span class="text-sm text-gray-600">Advisor: </span>
-                                    <span class="text-sm font-medium text-gray-900">{{ $meeting->advisor->user->name }}</span>
+                                    <span class="text-sm text-gray-600">Student: </span>
+                                    <span class="text-sm font-medium text-gray-900">{{ $meeting->student->user->name }}</span>
                                 </div>
                                 @if($meeting->notes)
                                     <div class="ml-7 mt-1 text-sm text-gray-600">
@@ -83,7 +83,7 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Advisor</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -96,7 +96,7 @@
                                     {{ \Carbon\Carbon::parse($meeting->dateTime)->format('M d, Y g:i A') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $meeting->advisor->user->name }}
+                                    {{ $meeting->student->user->name }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
                                     {{ Str::limit($meeting->notes, 50) }}
